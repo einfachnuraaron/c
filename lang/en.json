@@ -1,12 +1,12 @@
 {
   "about": "About",
-  "login": "Log in with Spotify",
+  "login": "Mit Spotify anmelden",
   "online": "Online",
-  "queue.title": "Queue",
-  "queue.empty": "The queue is empty, add a song.",
-  "queue.add": "Add a song",
-  "devices.title": "Devices",
-  "devices.fetch": "Fetch devices",
-  "devices.transfer": "Transfer",
-  "devices.empty": "The list of devices is empty,"
+  "queue.title": "Warteschlange",
+  "queue.empty": "Die Warteschlange ist im Moment leider leer. Füge über die Suche einen Song hinzu.",
+  "queue.add": "Suchen",
+  "devices.title": "Geräte",
+  "devices.fetch": "Geräte suchen",
+  "devices.transfer": "Verbinden",
+  "devices.empty": "Derzeit sind leider keine Geräte verfügbar."
 }

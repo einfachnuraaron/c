@@ -12,7 +12,12 @@ import AddToQueue from '../components/AddToQueue';
 import NowPlaying from '../components/NowPlaying';
 import Devices from '../components/Devices';
 import PageWithIntl from '../components/PageWithIntl';
-import { FormattedMessage } from 'react-intl';
+
+var isMobile;
+const onlineStyle = {
+  width: '150px',
+  float: 'right'
+};
 
 class Main extends React.Component {
   static getInitialProps({ req, store, isServer }) {
@@ -22,16 +27,17 @@ class Main extends React.Component {
       store.dispatch(fetchPlayingContext())
     ]);
   }
+
   render() {
     return (
       <Layout>
-        {this.props.playing.track
-          ? <NowPlaying
-              track={this.props.playing.track}
-              user={this.props.playing.user}
-              position={this.props.playing.position}
-            />
-          : null}
+        {this.props.playing.track ? (
+          <NowPlaying
+            track={this.props.playing.track}
+            user={this.props.playing.user}
+            position={this.props.playing.position}
+          />
+        ) : null}
         <div className="app">
           <style jsx>
             {`
@@ -46,7 +52,7 @@ class Main extends React.Component {
             {this.props.session.user !== null ? <AddToQueue /> : null}
             {this.props.session.user !== null ? <Devices /> : null}
           </div>
-          <div style={{ float: 'right', width: '150px' }}>
+          <div style={onlineStyle}>
             <Users items={this.props.users} />
           </div>
         </div>

@@ -37,7 +37,13 @@ export default ({ index, item, session, onRemoveItem, onVoteUp, onVoteDown }) =>
         {voteDown}
       </td>
       <td>
-        <span>{item.voters.length - item.downvotes.length + ' vote(s)'}</span>
+        <span>
+          <nobr>
+            {(item.voters.length - item.downvotes.length) * (item.voters.length - item.downvotes.length) === 1
+              ? item.voters.length - item.downvotes.length + ' vote'
+              : item.voters.length - item.downvotes.length + ' votes'}
+          </nobr>
+        </span>
       </td>
     </tr>
   );

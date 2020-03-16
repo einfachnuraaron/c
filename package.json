@@ -30,13 +30,20 @@
     "express": "^4.16.2",
     "glob": "^7.1.2",
     "isomorphic-unfetch": "^2.0.0",
+    "mobile-device-detect": "^0.3.3",
+    "mobile-orientation": "^2.1.2",
     "next": "^7.0.0",
     "next-redux-wrapper": "^1.3.4",
     "promise-retry": "^1.1.1",
     "react": "^16.0.0",
+    "react-device-detect": "^1.11.14",
     "react-dom": "^16.0.0",
     "react-intl": "^2.4.0",
+    "react-native-dimension": "^1.0.6",
+    "react-native-orientation": "^3.1.3",
     "react-redux": "^5.0.6",
+    "react-responsive": "^8.0.3",
+    "react-use-media-query-hook": "0.0.1",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "request": "^2.88.0",
@@ -47,9 +54,11 @@
     "webpack-bundle-analyzer": "^2.9.0"
   },
   "devDependencies": {
+    "css-loader": "^3.4.2",
     "husky": "^0.14.3",
     "lint-staged": "^4.2.3",
-    "prettier": "^1.7.4"
+    "prettier": "^1.7.4",
+    "style-loader": "^1.1.3"
   },
   "engines": {
     "node": "8.4.x"

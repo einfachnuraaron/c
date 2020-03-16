@@ -7,20 +7,24 @@ import ButtonDarkStyle from './ButtonDarkStyle';
 import { fetchAvailableDevices, transferPlaybackToDevice } from '../actions/devicesActions';
 import { getIsFetchingDevices } from '../reducers';
 import { getDevices } from '../reducers';
+
+const fetchStyle = {
+  marginBottom: '10px'
+};
+
 class Devices extends React.PureComponent {
   render() {
     const { devices, isFetching, fetchAvailableDevices, transferPlaybackToDevice } = this.props;
     return (
       <div style={{ paddingBottom: '10px' }}>
-        <h2><FormattedMessage id="devices.title" /></h2>
-        <style jsx>
-          {ButtonStyle}
-        </style>
-        <style jsx>
-          {ButtonDarkStyle}
-        </style>
+        <h2>
+          <FormattedMessage id="devices.title" />
+        </h2>
+        <style jsx>{ButtonStyle}</style>
+        <style jsx>{ButtonDarkStyle}</style>
         <button
           className="btn btn--dark"
+          style={fetchStyle}
           disabled={isFetching}
           onClick={() => {
             fetchAvailableDevices();
@@ -28,36 +32,40 @@ class Devices extends React.PureComponent {
         >
           <FormattedMessage id="devices.fetch" />
         </button>
-        {devices.length === 0
-          ? <p><FormattedMessage id="devices.empty" /></p>
-          : <table>
-              <tbody>
-                {devices.map(device => (
-                  <tr>
-                    <td>
-                      {device.is_active
-                        ? <strong>Active -&gt;</strong>
-                        : <button
-                            onClick={() => {
-                              transferPlaybackToDevice(device.id);
-                            }}
-                          >
-                            <FormattedMessage id="devices.transfer" />
-                          </button>}
-                    </td>
-                    <td>
-                      {device.name}
-                    </td>
-                    <td>
-                      {device.type}
-                    </td>
-                    <td>
-                      {device.volume}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>}
+        {devices.length === 0 ? (
+          <p>
+            <FormattedMessage id="devices.empty" />
+          </p>
+        ) : (
+          <table>
+            <tbody>
+              {devices.map(device => (
+                <tr>
+                  <td>
+                    {device.is_active ? (
+                      <strong>Active:</strong>
+                    ) : (
+                      <p>
+                        <button
+                          class="btn btn-dark"
+                          onClick={() => {
+                            transferPlaybackToDevice(device.id);
+                          }}
+                        >
+                          <FormattedMessage id="devices.transfer" />
+                        </button>
+                      </p>
+                    )}
+                  </td>
+                  <td>{device.name}</td>
+                  <td>{device.type}</td>
+                  <td>{device.volume}</td>
+                </tr>
+              ))}
+            </tbody>
+            <br></br>
+          </table>
+        )}
       </div>
     );
   }
