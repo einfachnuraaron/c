@@ -153,6 +153,11 @@ const exportedApi = io => {
       queueManager.voteUpId(socket.user, id);
     });
 
+    socket.on('vote down', id => {
+      // todo: check that user is owner
+      queueManager.voteDownId(socket.user, id);
+    });
+
     socket.on('remove track', id => {
       // todo: check that user is owner
       queueManager.removeId(socket.user, id);

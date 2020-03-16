@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import QueueItem from './QueueItem';
 import { queueRemoveTrack } from '../actions/queueActions';
 import { voteUp } from '../actions/voteActions';
+import { voteDown } from '../actions/voteActions';
 
 class Queue extends React.PureComponent {
   render() {
@@ -28,6 +29,7 @@ class Queue extends React.PureComponent {
                     index={index}
                     key={index}
                     onVoteUp={() => this.props.voteUp(i.id)}
+                    onVoteDown={() => this.props.voteDown(i.id)}
                     onRemoveItem={() => this.props.queueRemoveTrack(i.id)}
                   />
                 ))}
@@ -40,6 +42,7 @@ class Queue extends React.PureComponent {
 
 const mapDispatchToProps = dispatch => ({
   voteUp: id => dispatch(voteUp(id)),
+  voteDown: id => dispatch(voteDown(id)),
   queueRemoveTrack: id => dispatch(queueRemoveTrack(id))
 });
 

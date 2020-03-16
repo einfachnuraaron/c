@@ -1,9 +1,12 @@
 import React from 'react';
 
-export default ({ index, item, session, onRemoveItem, onVoteUp }) => {
+export default ({ index, item, session, onRemoveItem, onVoteUp, onVoteDown }) => {
   const voteUp = item.voters && session.user && item.voters.filter(v => v.id === session.user.id).length === 0
     ? <button onClick={onVoteUp}>▲</button>
     : null;
+  const voteDown = item.voters && session.user && item.voters.filter(v => v.id === session.user.id).length === 0
+  ? <button onClick={onVoteDown}>▼</button>
+  : null;
   return (
     <tr>
       <td style={{ paddingRight: '10px' }}>
@@ -30,7 +33,7 @@ export default ({ index, item, session, onRemoveItem, onVoteUp }) => {
             >
               X
             </button>
-          : voteUp}
+          : voteUp, voteDown }
       </td>
       <td>
         {item.voters && item.voters.length > 0
