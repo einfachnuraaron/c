@@ -13,7 +13,6 @@ import NowPlaying from '../components/NowPlaying';
 import Devices from '../components/Devices';
 import PageWithIntl from '../components/PageWithIntl';
 
-var isMobile;
 const onlineStyle = {
   width: '150px',
   float: 'right'
