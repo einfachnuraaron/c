@@ -6,6 +6,7 @@ class QueueItem {
     this.track = options.track || {};
     this.user = options.user || {};
     this.voters = options.voters || [];
+    this.downvotes = options.downvotes || [];
     this.startTimestamp = options.startTimestamp || null;
     this.queuedTimestamp = options.queuedTimestamp || Date.now();
   }
@@ -15,6 +16,7 @@ class QueueItem {
       user: this.user,
       track: this.track,
       voters: this.voters,
+      downvotes: this.downvotes,
       startTimestamp: this.startTimestamp
     };
   }

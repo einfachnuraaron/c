@@ -111,16 +111,17 @@ class QueueManager {
   voteDownId(user, id) {
     const index = this.queue.findIndex(item => item.id === id);
     if (index === -1) return false;
-          if (index !== -1) {
-            this.queue.splice(index, 1);
-          }
-        this.handleQueueChanged();
-        return true;
-      }
-      if(userVotes.length >= 3){
-        this.removeId(user, id)
-      }
+    const voters = this.queue[index].voters;
+    const downvotes = this.queue[index].downvotes;
+    // if (item.downvotes.filter(v => v.id === user.id).length === 0) {
+    this.queue[index].downvotes.push(user);
+    this.handleQueueChanged();
+    if (voters.length - downvotes.length < -2) {
+      this.queue.splice(index, 1);
+      this.handleQueueChanged();
     }
+    return true;
+    // }
   }
 
   save() {
