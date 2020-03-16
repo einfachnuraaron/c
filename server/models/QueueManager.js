@@ -111,11 +111,9 @@ class QueueManager {
   voteDownId(user, id) {
     const index = this.queue.findIndex(item => item.id === id);
     if (index === -1) return false;
-    const voters = this.queue[index].voters;
-    if (voters) {
-      const userVotes = voters.filter(v => v.id === user.id);
-      if (userVotes.length === 0) {
-        this.queue[index].voters.delete(user);
+          if (index !== -1) {
+            this.queue.splice(index, 1);
+          }
         this.handleQueueChanged();
         return true;
       }
