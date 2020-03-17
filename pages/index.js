@@ -36,7 +36,72 @@ class Main extends React.Component {
             user={this.props.playing.user}
             position={this.props.playing.position}
           />
-        ) : null}
+        ) : (
+          <div className="now-playing">
+            <style jsx>{`
+              .now-playing {
+                background-color: #3b454f;
+                color: #fff;
+                height: 250px;
+                position: relative;
+                width: 100%;
+              }
+              .now-playing__text {
+                padding: 40px;
+              }
+              .now-playing__bd {
+                padding-left: 30px;
+              }
+              .now-playing__track-name {
+                font-size: 2em;
+                padding-top: 1.2em;
+              }
+              .now-playing__artist-name {
+                font-size: 1.2em;
+                padding-bottom: 2em;
+                padding-top: 0.5em;
+              }
+              .now-playing__user {
+                padding-top: 0.5em;
+              }
+              .now-playing__progress_bar {
+                bottom: 0;
+                background-color: #fdd835;
+                height: 5px;
+                position: absolute;
+                width: 100%;
+              }
+              .media,
+              .media__bd {
+                overflow: hidden;
+                _overflow: visible;
+                zoom: 1;
+              }
+              .media .media__img {
+                float: left;
+                margin-right: 10px;
+              }
+              .user-image {
+                border-radius: 50%;
+              }
+              .user-name {
+                line-height: 30px;
+              }
+            `}</style>
+            <div className="now-playing__text media">
+              <div className="media__img">
+                <img src="/static/defaultalbumcover.png" width="170" height="170" />
+              </div>
+              <div className="now-playing__bd media__bd">
+                <div className="now-playing__track-name"></div>
+                <div className="now-playing__artist-name"></div>
+              </div>
+            </div>
+            <div className="now-playing__progress">
+              <div className="now-playing__progress_bar" style={{ width: '100%' }} />
+            </div>
+          </div>
+        )}
         <div className="app">
           <style jsx>
             {`
