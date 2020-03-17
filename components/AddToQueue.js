@@ -21,9 +21,10 @@ class ResultsList extends Component {
           }
           .add-to-queue__search-results-item {
             padding: 5px 0 5px 5px;
+            color: white; !important
           }
           .add-to-queue__search-results-item--focused {
-            background-color: #eee;
+            background-color: #3b454f;
           }
           .container {
             display: flex;
@@ -67,7 +68,7 @@ class ResultsList extends Component {
 class AddToQueue extends Component {
   state = {
     text: this.props.text || '',
-    focus: -1
+    focus: 0
   };
 
   handleChange = e => {
@@ -97,6 +98,8 @@ class AddToQueue extends Component {
   handleFocus = e => {
     if (e.target.value !== '') {
       this.props.searchTracks(e.target.value);
+    } else {
+      this.setState({ focus: 0 });
     }
   };
 
@@ -123,8 +126,9 @@ class AddToQueue extends Component {
         if (correct) {
           this.setState({ text: '' });
           this.props.searchTracksReset();
-          this.setState({ focus: -1 });
+          this.setState({ focus: 0 });
         }
+
         break;
       }
     }

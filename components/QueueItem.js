@@ -3,10 +3,15 @@ import { voteDown } from '../actions/voteActions';
 
 export default ({ index, item, session, onRemoveItem, onVoteUp, onVoteDown }) => {
   const voteUp =
-    item.voters && session.user && item.voters.filter(v => v.id === session.user.id).length === 0 ? (
-      <button onClick={onVoteUp}>▲</button>
-    ) : null;
+    item.voters &&
+    item.downvotes != null &&
+    item.downvotes.filter(v => v.id === session.user.id).length === 0 &&
+    session.user &&
+    item.voters.filter(v => v.id === session.user.id).length === 0
+      ? [<button onClick={onVoteUp}>▲</button>]
+      : null;
   const voteDown =
+    item.voters.filter(v => v.id === session.user.id).length === 0 &&
     item.downvotes &&
     session.user &&
     item.user.id !== session.user.id &&

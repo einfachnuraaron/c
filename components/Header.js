@@ -12,7 +12,7 @@ const titleStyle = {
   color: 'white',
   textDecoration: 'none',
   fontSize: 23,
-  fontFamily: 'Bahnschrift, Bahnschrift, Arial, Serif'
+  fontFamily: 'Bahnschrift, "Goudy Bookletter 1911", sans-serif'
 };
 
 const linkStyle = {
