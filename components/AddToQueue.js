@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
 
-import { searchTracks, searchTracksReset } from '../actions/searchActions';
+import { searchTracks, searchTracksReset, choosePlaylist } from '../actions/searchActions';
 import { queueTrack } from '../actions/queueActions';
 
 class ResultsList extends Component {
@@ -111,6 +111,12 @@ class AddToQueue extends Component {
       case 40: // down
         this.setState({ focus: this.state.focus + 1 });
         break;
+      case 18:
+        {
+          var playlists = this.props.choosePlaylist();
+          console.log(playlists);
+        }
+        break;
       case 13: {
         let correct = false;
         if (this.state.focus !== -1) {
@@ -166,6 +172,7 @@ class AddToQueue extends Component {
 const mapDispatchToProps = dispatch => ({
   queueTrack: text => dispatch(queueTrack(text)),
   searchTracks: query => dispatch(searchTracks(query)),
+  choosePlaylist: query => dispatch(choosePlaylist(query)),
   searchTracksReset: () => dispatch(searchTracksReset())
 });
 

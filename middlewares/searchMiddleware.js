@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-unfetch';
 
-import { SEARCH_TRACKS } from '../constants/ActionTypes';
-import { searchTracksSuccess } from '../actions/searchActions';
+import { SEARCH_TRACKS, CHOOSE_PLAYLIST } from '../constants/ActionTypes';
+import { searchTracksSuccess, choosePlaylistSuccess } from '../actions/searchActions';
 
 const SPOTIFY_API_BASE = 'https://api.spotify.com/v1';
 
@@ -28,11 +28,27 @@ const searchTracks = query => (dispatch, getState) => {
     });
 };
 
+const choosePlaylist = query => (dispatch, getState) => {
+  return fetch(`${SPOTIFY_API_BASE}/me/playlists?limit=5`, {
+    headers: {
+      Authorization: 'Bearer ' + getState().session.access_token
+    }
+  })
+    .then(res => res.json())
+    .then(res => {
+      dispatch(choosePlaylistSuccess(query, res.items));
+    });
+};
+
 export default store => next => action => {
   const result = next(action);
   switch (action.type) {
     case SEARCH_TRACKS: {
       return store.dispatch(searchTracks(action.query));
+      break;
+    }
+    case CHOOSE_PLAYLIST: {
+      return store.dispatch(choosePlaylist(action.query));
       break;
     }
     default:
