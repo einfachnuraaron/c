@@ -9,7 +9,29 @@ import { getIsFetchingDevices } from '../reducers';
 import { getDevices } from '../reducers';
 
 const fetchStyle = {
-  marginBottom: '10px'
+  marginBottom: '10px',
+  outline: 'none'
+};
+
+const transferButton = {
+  backgroundColor: '#3b454f',
+  color: '#fff',
+  outline: 'none',
+  borderColor: 'gray',
+  height: '30px',
+  width: '90px',
+  cursor: 'pointer',
+  marginRight: '5px'
+};
+
+const activeButton = {
+  backgroundColor: '#3b454f',
+  color: 'gray',
+  outline: 'none',
+  borderColor: 'gray',
+  height: '30px',
+  width: '90px',
+  marginRight: '5px'
 };
 
 class Devices extends React.PureComponent {
@@ -43,11 +65,14 @@ class Devices extends React.PureComponent {
                 <tr>
                   <td>
                     {device.is_active ? (
-                      <strong>Active:</strong>
+                      <button disabled style={activeButton} class="btn btn--dark">
+                        Aktiv
+                      </button>
                     ) : (
                       <p>
                         <button
-                          class="btn btn-dark"
+                          style={transferButton}
+                          class="btn btn--dark"
                           onClick={() => {
                             transferPlaybackToDevice(device.id);
                           }}

@@ -71,23 +71,47 @@ const queueManager = new QueueManager({
       });
     });
   },
-  onQueueChanged: () => {
+  onQueueChanged: async () => {
     globalSocket && globalSocket.emit('update queue', queueManager.getQueue());
     globalSocket && globalSocket.broadcast.emit('update queue', queueManager.getQueue());
+    if (queueManager.getQueue().length === 0) {
+      const playlistRecommendation = await botUser.generateRecommendationFromPlaylist(getToken, spotifyApi);
+      if (playlistRecommendation !== null) {
+        queueManager.addItem(
+          new QueueItem({
+            track: playlistRecommendation,
+            user: botUser
+          }).toJSON()
+        );
+      } else {
+        console.log('Das war wohl nix :/');
+      }
+    }
   },
   onQueueEnded: async () => {
     globalSocket && globalSocket.emit('update queue', queueManager.getQueue());
     globalSocket && globalSocket.broadcast.emit('update queue', queueManager.getQueue());
-
-    const botRecommendation = await botUser.generateRecommendation(queueManager.playedHistory, getToken, spotifyApi);
-    if (botRecommendation !== null) {
+    // '37i9dQZF1EthkNN8NKPlxz'
+    const playlistRecommendation = await botUser.generateRecommendationFromPlaylist(getToken, spotifyApi);
+    if (playlistRecommendation !== null) {
       queueManager.addItem(
         new QueueItem({
-          track: botRecommendation,
+          track: playlistRecommendation,
           user: botUser
         }).toJSON()
       );
+    } else {
+      console.log('Das war wohl nix :/');
     }
+    //   const botRecommendation = await botUser.generateRecommendation(queueManager.playedHistory, getToken, spotifyApi);
+    //   if (botRecommendation !== null) {
+    //     queueManager.addItem(
+    //       new QueueItem({
+    //         track: botRecommendation,
+    //         user: botUser
+    //       }).toJSON()
+    //     );
+    // }
   }
 });
 
@@ -215,8 +239,14 @@ const exportedApi = io => {
         } else {
           // remove user from users
           users.splice(userIndex, 1);
-          socket.emit('update users', users.map(u => u.user));
-          socket.broadcast.emit('update users', users.map(u => u.user));
+          socket.emit(
+            'update users',
+            users.map(u => u.user)
+          );
+          socket.broadcast.emit(
+            'update users',
+            users.map(u => u.user)
+          );
         }
       }
     });

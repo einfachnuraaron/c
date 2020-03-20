@@ -1,22 +1,46 @@
 import React from 'react';
 import { voteDown } from '../actions/voteActions';
+import { NonceProvider } from 'react-select';
+
+const buttonStyle = {
+  backgroundColor: '#3b454f',
+  color: '#fdd835',
+  outline: 'none',
+  borderColor: 'gray',
+  margin: '3px',
+  height: '30px'
+};
+
+const buttonStyleX = {
+  backgroundColor: '#3b454f',
+  color: '#fdd835',
+  outline: 'none',
+  borderColor: 'grey',
+  margin: '3px',
+  fontWeight: 'bold',
+  height: '30px',
+  width: '30px'
+};
+
+const nameStyle = {
+  paddingRight: '10px',
+  width: '5px',
+  ovderflow: 'hidden'
+};
 
 export default ({ index, item, session, onRemoveItem, onVoteUp, onVoteDown }) => {
   const voteUp =
-    item.voters &&
-    item.downvotes != null &&
-    item.downvotes.filter(v => v.id === session.user.id).length === 0 &&
-    session.user &&
-    item.voters.filter(v => v.id === session.user.id).length === 0
-      ? [<button onClick={onVoteUp}>▲</button>]
-      : null;
+    session.user && item.user.id !== session.user.id ? (
+      <button style={buttonStyle} onClick={onVoteUp}>
+        ▲
+      </button>
+    ) : null;
   const voteDown =
-    item.voters.filter(v => v.id === session.user.id).length === 0 &&
-    item.downvotes &&
-    session.user &&
-    item.user.id !== session.user.id &&
-    item.downvotes.filter(v => v.id === session.user.id).length === 0 ? (
-      <button onClick={onVoteDown}>▼</button>
+    // item.voters.filter(v => v.id === session.user.id).length === 0 &&
+    session.user && item.user.id !== session.user.id ? (
+      <button style={buttonStyle} onClick={onVoteDown}>
+        ▼
+      </button>
     ) : null;
   return (
     <tr>
@@ -26,15 +50,16 @@ export default ({ index, item, session, onRemoveItem, onVoteUp, onVoteDown }) =>
       <td style={{ paddingRight: '10px' }}>{index + 1}</td>
       <td style={{ paddingRight: '10px' }}>{item.track.name}</td>
       <td style={{ paddingRight: '10px' }}>{item.track.artists.map(a => a.name).join(', ')}</td>
-      <td style={{ paddingRight: '10px' }}>{item.user && (item.user.display_name || item.user.id)}</td>
+      <td style={nameStyle}>{item.user && (item.user.display_name || item.user.id)}</td>
       <td>
         {item.user && session.user && item.user.id === session.user.id ? (
           <button
+            style={buttonStyleX}
             onClick={() => {
               onRemoveItem(item.id);
             }}
           >
-            X
+            ✕
           </button>
         ) : (
           voteUp

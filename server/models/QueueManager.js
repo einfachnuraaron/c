@@ -26,13 +26,21 @@ class QueueManager {
     return this.playingContext;
   }
 
+  setPlayingContext() {
+    this.playingContext = {
+      track: null,
+      user: null,
+      startTimestamp: null
+    };
+  }
+
   getQueue() {
     return this.queue;
   }
 
   sort() {
     this.queue.sort((a, b) => {
-      const diffVoters = b.voters.length - a.voters.length;
+      const diffVoters = b.voters.length - b.downvotes.length - (a.voters.length - a.downvotes.length);
       if (diffVoters !== 0) {
         return diffVoters;
       } else {
@@ -98,13 +106,21 @@ class QueueManager {
     const index = this.queue.findIndex(item => item.id === id);
     if (index === -1) return false;
     const voters = this.queue[index].voters;
+    const downvotes = this.queue[index].downvotes;
     if (voters) {
       const userVotes = voters.filter(v => v.id === user.id);
       if (userVotes.length === 0) {
-        this.queue[index].voters.push(user);
+        if (downvotes) {
+          const userDownvotes = downvotes.filter(v => v.id === user.id);
+          if (userDownvotes !== 0) {
+            this.queue[index].downvotes.splice(user, 1);
+          }
+          this.queue[index].voters.push(user);
+        }
         this.handleQueueChanged();
         return true;
       }
+      return false;
     }
   }
 
@@ -113,16 +129,43 @@ class QueueManager {
     if (index === -1) return false;
     const voters = this.queue[index].voters;
     const downvotes = this.queue[index].downvotes;
-    // if (item.downvotes.filter(v => v.id === user.id).length === 0) {
-    this.queue[index].downvotes.push(user);
-    this.handleQueueChanged();
-    if (voters.length - downvotes.length < -2) {
-      this.queue.splice(index, 1);
-      this.handleQueueChanged();
+    if (downvotes) {
+      const userVotes = downvotes.filter(v => v.id === user.id);
+      if (userVotes.length === 0) {
+        if (voters) {
+          const userVotes = voters.filter(v => v.id === user.id);
+          if (userVotes !== 0) {
+            this.queue[index].voters.splice(user, 1);
+          }
+          this.queue[index].downvotes.push(user);
+        }
+        if (voters.length - downvotes.length < -2) {
+          this.queue.splice(index, 1);
+          this.handleQueueChanged();
+        } else {
+          this.handleQueueChanged();
+        }
+        return true;
+      }
+      return false;
     }
-    return true;
-    // }
   }
+
+  // voteDownId(user, id) {
+  //   const index = this.queue.findIndex(item => item.id === id);
+  //   if (index === -1) return false;
+  //   const voters = this.queue[index].voters;
+  //   const downvotes = this.queue[index].downvotes;
+  //   // if (item.downvotes.filter(v => v.id === user.id).length === 0) {
+  //   this.queue[index].downvotes.push(user);
+  //   this.handleQueueChanged();
+  //   if (voters.length - downvotes.length < -2) {
+  //     this.queue.splice(index, 1);
+  //     this.handleQueueChanged();
+  //   }
+  //   return true;
+  //   // }
+  // }
 
   save() {
     fs.writeFileSync(

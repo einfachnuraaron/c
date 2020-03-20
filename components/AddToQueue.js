@@ -5,6 +5,14 @@ import { injectIntl } from 'react-intl';
 import { searchTracks, searchTracksReset, choosePlaylist } from '../actions/searchActions';
 import { queueTrack } from '../actions/queueActions';
 
+const SpotifyWebApi = require('spotify-web-api-node');
+
+const AuthConfig = require('../config/auth');
+const spotifyApi = new SpotifyWebApi({
+  clientId: AuthConfig.CLIENT_ID,
+  clientSecret: AuthConfig.CLIENT_SECRET
+});
+
 class ResultsList extends Component {
   render() {
     const { results, focus } = this.props;
@@ -77,7 +85,7 @@ class AddToQueue extends Component {
     if (text !== '') {
       this.props.searchTracks(text);
     } else {
-      this.setState({ focus: -1 });
+      this.setState({ focus: 0 });
       this.props.searchTracksReset();
     }
   };
@@ -113,8 +121,7 @@ class AddToQueue extends Component {
         break;
       case 18:
         {
-          var playlists = this.props.choosePlaylist();
-          console.log(playlists);
+          spotifyApi.getPlaylistTracks('37i9dQZF1EthkNN8NKPlxz').then(resp => console.log(resp));
         }
         break;
       case 13: {

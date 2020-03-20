@@ -7,14 +7,12 @@ import { fetchQueue } from '../actions/queueActions';
 import { fetchUsers } from '../actions/usersActions';
 import { fetchPlayingContext } from '../actions/playbackActions';
 import { choosePlaylist } from '../actions/searchActions';
-
 import Users from '../components/Users';
 import Queue from '../components/Queue';
 import AddToQueue from '../components/AddToQueue';
 import NowPlaying from '../components/NowPlaying';
 import Devices from '../components/Devices';
 import PageWithIntl from '../components/PageWithIntl';
-import Select from 'react-select';
 
 var options = {
   type: 'CHOOSE_PLAYLIST_SUCCESS',
@@ -315,16 +313,18 @@ class Main extends React.Component {
           </div>
           <div style={onlineStyle}>
             <Users items={this.props.users} />
-            <select value={this.state.value} onChange={this.handleChange} style={selectStyle}>
-              <option value="placeholder" selected hidden>
-                Playlist wählen
-              </option>
-              {options.results.map(block => (
-                <option value={block.id} className="App">
-                  {block.name}
+            {this.props.session.user !== null ? (
+              <select value={this.state.playlistID} onChange={this.handleChange} style={selectStyle}>
+                <option value="" selected hidden>
+                  Playlist wählen
                 </option>
-              ))}
-            </select>
+                {options.results.map(block => (
+                  <option value={block.id} className="App">
+                    {block.name}
+                  </option>
+                ))}
+              </select>
+            ) : null}
           </div>
         </div>
       </Layout>
@@ -332,18 +332,17 @@ class Main extends React.Component {
   }
 
   state = {
-    // Since the reference of the initial value is not from the 'sports' collection,
-    // 'dataItemKey' have to be set.
-    value: ''
+    playlistID: ''
   };
 
   handleChange = event => {
     this.setState({
-      value: event.target.value
+      playlistID: event.target.value
     });
-    console.log(this.props.choosePlaylist() + 'Aaron');
     console.log(event.target.value);
+    console.log(this.props.playlistID);
     console.log(this.props);
+    // api.playlistID = event.target.value;
   };
 }
 
@@ -351,7 +350,8 @@ const mapStateToProps = state => ({
   playing: state.playback,
   queue: state.queue,
   users: state.users,
-  session: state.session
+  session: state.session,
+  playlistID: state.playlistID
 });
 
 const mapDispatchToProps = dispatch => ({
