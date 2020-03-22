@@ -1,5 +1,15 @@
 import React from 'react';
 
+const buttonStyleX = {
+  backgroundColor: '#3b454f',
+  color: '#fdd835',
+  outline: 'none',
+  borderColor: 'grey',
+  fontWeight: 'bold',
+  height: '30px',
+  width: '30px'
+};
+
 class NowPlaying extends React.PureComponent {
   constructor() {
     super();
@@ -28,6 +38,12 @@ class NowPlaying extends React.PureComponent {
   componentWillUnmount() {
     clearInterval(this.timer);
   }
+
+  handleRemovePlayingSong() {
+    const queueManager = new QueueManager();
+    queueManager.setPlayingContext();
+  }
+
   render() {
     const percentage = +((this.state.currentPosition * 100) / this.props.track.duration_ms).toFixed(2) + '%';
     const userName = this.props.user.display_name || this.props.user.id;
@@ -40,6 +56,7 @@ class NowPlaying extends React.PureComponent {
             height: 250px;
             position: relative;
             width: 100%;
+            overflov: hidden;
           }
           .now-playing__text {
             padding: 40px;
@@ -50,6 +67,8 @@ class NowPlaying extends React.PureComponent {
           .now-playing__track-name {
             font-size: 2em;
             padding-top: 1.2em;
+
+            white-space: nowrap;
           }
           .now-playing__artist-name {
             font-size: 1.2em;
@@ -82,14 +101,26 @@ class NowPlaying extends React.PureComponent {
           .user-name {
             line-height: 30px;
           }
+          .trackartist {
+            height: 130px;
+            overflow-x: auto;
+            overflow-y: hidden;
+          }
         `}</style>
         <div className="now-playing__text media">
           <div className="media__img">
             <img src={this.props.track.album.images[1].url} width="170" height="170" />
           </div>
           <div className="now-playing__bd media__bd">
-            <div className="now-playing__track-name">{this.props.track.name}</div>
-            <div className="now-playing__artist-name">{this.props.track.artists.map(a => a.name).join(', ')}</div>
+            <div className="trackartist">
+              <div className="now-playing__track-name">
+                {this.props.track.name}
+                {/* <button style={buttonStyleX} onClick={this.handleRemovePlayingSong()}>
+            ✕
+          </button> */}
+              </div>
+              <div className="now-playing__artist-name">{this.props.track.artists.map(a => a.name).join(', ')}</div>
+            </div>
             <div className="media__img">
               <img
                 className="user-image"

@@ -2,8 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
 
-import { searchTracks, searchTracksReset } from '../actions/searchActions';
+import { searchTracks, searchTracksReset, choosePlaylist } from '../actions/searchActions';
 import { queueTrack } from '../actions/queueActions';
+
+const SpotifyWebApi = require('spotify-web-api-node');
+
+const AuthConfig = require('../config/auth');
+const spotifyApi = new SpotifyWebApi({
+  clientId: AuthConfig.CLIENT_ID,
+  clientSecret: AuthConfig.CLIENT_SECRET
+});
 
 class ResultsList extends Component {
   render() {
@@ -21,9 +29,10 @@ class ResultsList extends Component {
           }
           .add-to-queue__search-results-item {
             padding: 5px 0 5px 5px;
+            color: white; !important
           }
           .add-to-queue__search-results-item--focused {
-            background-color: #eee;
+            background-color: #3b454f;
           }
           .container {
             display: flex;
@@ -67,7 +76,7 @@ class ResultsList extends Component {
 class AddToQueue extends Component {
   state = {
     text: this.props.text || '',
-    focus: -1
+    focus: 0
   };
 
   handleChange = e => {
@@ -76,7 +85,7 @@ class AddToQueue extends Component {
     if (text !== '') {
       this.props.searchTracks(text);
     } else {
-      this.setState({ focus: -1 });
+      this.setState({ focus: 0 });
       this.props.searchTracksReset();
     }
   };
@@ -97,6 +106,8 @@ class AddToQueue extends Component {
   handleFocus = e => {
     if (e.target.value !== '') {
       this.props.searchTracks(e.target.value);
+    } else {
+      this.setState({ focus: 0 });
     }
   };
 
@@ -108,9 +119,14 @@ class AddToQueue extends Component {
       case 40: // down
         this.setState({ focus: this.state.focus + 1 });
         break;
+      case 18:
+        {
+          spotifyApi.getPlaylistTracks('37i9dQZF1EthkNN8NKPlxz').then(resp => console.log(resp));
+        }
+        break;
       case 13: {
         let correct = false;
-        if (this.state.focus !== -1) {
+        if (this.state.focus >= 0) {
           this.props.queueTrack(this.props.search.results[this.state.focus].id);
           correct = true;
         } else {
@@ -123,8 +139,9 @@ class AddToQueue extends Component {
         if (correct) {
           this.setState({ text: '' });
           this.props.searchTracksReset();
-          this.setState({ focus: -1 });
+          this.setState({ focus: 0 });
         }
+
         break;
       }
     }
@@ -162,6 +179,7 @@ class AddToQueue extends Component {
 const mapDispatchToProps = dispatch => ({
   queueTrack: text => dispatch(queueTrack(text)),
   searchTracks: query => dispatch(searchTracks(query)),
+  choosePlaylist: query => dispatch(choosePlaylist(query)),
   searchTracksReset: () => dispatch(searchTracksReset())
 });
 

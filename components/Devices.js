@@ -9,6 +9,33 @@ import { getIsFetchingDevices } from '../reducers';
 import { getDevices } from '../reducers';
 
 const fetchStyle = {
+  marginBottom: '10px',
+  outline: 'none'
+};
+
+const transferButton = {
+  backgroundColor: '#3b454f',
+  color: '#fff',
+  outline: 'none',
+  borderColor: 'gray',
+  height: '30px',
+  width: '90px',
+  cursor: 'pointer',
+  marginRight: '5px'
+};
+
+const activeButton = {
+  backgroundColor: '#3b454f',
+  color: 'gray',
+  outline: 'none',
+  borderColor: 'gray',
+  height: '30px',
+  width: '90px',
+  marginRight: '5px',
+  borderStyle: 'inset'
+};
+
+const capital = {
   marginBottom: '10px'
 };
 
@@ -16,8 +43,8 @@ class Devices extends React.PureComponent {
   render() {
     const { devices, isFetching, fetchAvailableDevices, transferPlaybackToDevice } = this.props;
     return (
-      <div style={{ paddingBottom: '10px' }}>
-        <h2>
+      <div style={{ paddingBottom: '' }}>
+        <h2 style={capital}>
           <FormattedMessage id="devices.title" />
         </h2>
         <style jsx>{ButtonStyle}</style>
@@ -43,18 +70,19 @@ class Devices extends React.PureComponent {
                 <tr>
                   <td>
                     {device.is_active ? (
-                      <strong>Active:</strong>
+                      <button disabled style={activeButton} class="btn btn--dark">
+                        Aktiv
+                      </button>
                     ) : (
-                      <p>
-                        <button
-                          class="btn btn-dark"
-                          onClick={() => {
-                            transferPlaybackToDevice(device.id);
-                          }}
-                        >
-                          <FormattedMessage id="devices.transfer" />
-                        </button>
-                      </p>
+                      <button
+                        style={transferButton}
+                        class="btn btn--dark"
+                        onClick={() => {
+                          transferPlaybackToDevice(device.id);
+                        }}
+                      >
+                        <FormattedMessage id="devices.transfer" />
+                      </button>
                     )}
                   </td>
                   <td>{device.name}</td>
