@@ -57,6 +57,7 @@ class NowPlaying extends React.PureComponent {
             position: relative;
             width: 100%;
             overflov: hidden;
+            border-bottom: 1px solid #333b44;
           }
           .now-playing__text {
             padding: 40px;
@@ -105,17 +106,17 @@ class NowPlaying extends React.PureComponent {
             overflow-x: auto;
             overflow-y: hidden;
           }
-          @media screen and (max-width: 417px){
+          @media screen and (max-width: 480px){
             .now-playing {
               background-color: #3b454f;
               color: #fff;
-              height: 180px;
+              height: 170px;
               position: relative;
               width: 100%;
               overflov: hidden;
             }
             .now-playing__text {
-              padding: 30px;
+              padding: 25px;
             }
             .media .media__img{
               float: left;
