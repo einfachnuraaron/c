@@ -354,7 +354,7 @@ class Main extends React.Component {
           </div>
           <div style={onlineStyle} className="online">
             <Users items={this.props.users} />
-            {this.props.session.user !== null ? (
+            {/* {this.props.session.user !== null ? (
               <select value={this.state.playlistID} onChange={this.handleChange} style={selectStyle}>
                 <option value="" selected hidden>
                   Playlist wählen
@@ -365,7 +365,7 @@ class Main extends React.Component {
                   </option>
                 ))}
               </select>
-            ) : null}
+            ) : null} */}
           </div>
         </div>
         <div className="footer">
@@ -413,7 +413,10 @@ class Main extends React.Component {
             `}
           </style>
           <Link href="https://github.com/JMPerez/c">
-            <a className="credits">Based on JMPerez's collaborative listening room </a>
+            <a className="credits">
+              Based on JMPerez's collaborative listening room
+              <span style={{ marginLeft: '35px' }}>Versionsstand: 22.03.2020</span>
+            </a>
           </Link>
         </div>
       </Layout>
