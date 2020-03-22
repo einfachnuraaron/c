@@ -67,7 +67,6 @@ class NowPlaying extends React.PureComponent {
           .now-playing__track-name {
             font-size: 2em;
             padding-top: 1.2em;
-
             white-space: nowrap;
           }
           .now-playing__artist-name {
@@ -106,10 +105,51 @@ class NowPlaying extends React.PureComponent {
             overflow-x: auto;
             overflow-y: hidden;
           }
+          @media screen and (max-width: 417px){
+            .now-playing {
+              background-color: #3b454f;
+              color: #fff;
+              height: 180px;
+              position: relative;
+              width: 100%;
+              overflov: hidden;
+            }
+            .now-playing__text {
+              padding: 30px;
+            }
+            .media .media__img{
+              float: left;
+              margin-right: 10px;
+            }
+            .now-playing__bd {
+              padding-left: 15px;
+            }
+            .trackimg{
+              width: 120px;
+              height: 120px
+            }
+            .user-image img{
+              height: 15px; !important
+              width: 15px; !important
+            }
+            .now-playing__track-name {
+              font-size: 1.6em;
+              padding-top: 0.5em;
+              white-space: nowrap;
+            }
+            .now-playing__artist-name {
+              font-size: 1.1em;
+            }
+            .trackartist {
+              height: 90px;
+              overflow-x: auto;
+              overflow-y: hidden;
+            }
+          }
         `}</style>
         <div className="now-playing__text media">
           <div className="media__img">
-            <img src={this.props.track.album.images[1].url} width="170" height="170" />
+            <img className="trackimg" src={this.props.track.album.images[1].url} width="170" height="170" />
           </div>
           <div className="now-playing__bd media__bd">
             <div className="trackartist">

@@ -27,7 +27,8 @@ const nameStyle = {
 };
 
 const nameWidth = {
-  width: '5px'
+  width: '5px',
+  paddingRight: '10px'
 };
 
 const tracknameStyle = {
