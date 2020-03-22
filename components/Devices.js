@@ -31,15 +31,20 @@ const activeButton = {
   borderColor: 'gray',
   height: '30px',
   width: '90px',
-  marginRight: '5px'
+  marginRight: '5px',
+  borderStyle: 'inset'
+};
+
+const capital = {
+  marginBottom: '10px'
 };
 
 class Devices extends React.PureComponent {
   render() {
     const { devices, isFetching, fetchAvailableDevices, transferPlaybackToDevice } = this.props;
     return (
-      <div style={{ paddingBottom: '10px' }}>
-        <h2>
+      <div style={{ paddingBottom: '' }}>
+        <h2 style={capital}>
           <FormattedMessage id="devices.title" />
         </h2>
         <style jsx>{ButtonStyle}</style>
@@ -69,17 +74,15 @@ class Devices extends React.PureComponent {
                         Aktiv
                       </button>
                     ) : (
-                      <p>
-                        <button
-                          style={transferButton}
-                          class="btn btn--dark"
-                          onClick={() => {
-                            transferPlaybackToDevice(device.id);
-                          }}
-                        >
-                          <FormattedMessage id="devices.transfer" />
-                        </button>
-                      </p>
+                      <button
+                        style={transferButton}
+                        class="btn btn--dark"
+                        onClick={() => {
+                          transferPlaybackToDevice(device.id);
+                        }}
+                      >
+                        <FormattedMessage id="devices.transfer" />
+                      </button>
                     )}
                   </td>
                   <td>{device.name}</td>

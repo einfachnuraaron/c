@@ -46,10 +46,28 @@ const getNameFromUser = user => {
 };
 
 const Header = ({ session, muted, mutePlayback, unmutePlayback, login }) => (
-  <div style={headerStyle}>
-    <Link href="">
+  <div title="Based on JMPerez's collaborative listening room" style={headerStyle}>
+    <Link href="https://github.com/JMPerez/c">
       <a style={titleStyle}>spotify noiselink.</a>
     </Link>
+
+    <button
+      className="btn btn--dark mutebut"
+      onClick={() => {
+        muted ? unmutePlayback() : mutePlayback();
+      }}
+    >
+      <style jsx>{ButtonStyle}</style>
+      <style jsx>{ButtonDarkStyle}</style>
+      <style jsx>{`
+        @media screen and (max-width: 480px) {
+          .mutebut {
+            display: none;
+          }
+        }
+      `}</style>
+      {muted ? 'Unmute' : 'Mute'}
+    </button>
     {session.user ? (
       <div className="media user-header">
         <style jsx>{`
@@ -72,6 +90,9 @@ const Header = ({ session, muted, mutePlayback, unmutePlayback, login }) => (
           .media .media__img {
             float: left;
             margin-right: 10px;
+          }
+          .btn {
+            float: right;
           }
         `}</style>
         <div className="media__img">
@@ -97,29 +118,6 @@ const Header = ({ session, muted, mutePlayback, unmutePlayback, login }) => (
         <FormattedMessage id="login" />
       </button>
     )}
-    {session.user ? (
-      <div className="playback-control">
-        <style jsx>{ButtonStyle}</style>
-        <style jsx>{ButtonDarkStyle}</style>
-        <style jsx>{`
-          .playback-control {
-            float: ;
-            width: 200px;
-          }
-        `}</style>
-        {/* <button
-            className="btn btn--dark"
-            onClick={() => {
-              muted ? unmutePlayback() : mutePlayback();
-            }}
-          >
-            {muted ? 'Unmute' : 'Mute'}
-          </button>
-          <Link href="https://c-spotify.herokuapp.com/about">
-            <a style={linkStyle}><FormattedMessage id="about" /></a>
-          </Link> */}
-      </div>
-    ) : null}
   </div>
 );
 

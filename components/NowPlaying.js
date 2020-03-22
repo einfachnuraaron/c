@@ -67,7 +67,8 @@ class NowPlaying extends React.PureComponent {
           .now-playing__track-name {
             font-size: 2em;
             padding-top: 1.2em;
-            overflow: auto;
+
+            white-space: nowrap;
           }
           .now-playing__artist-name {
             font-size: 1.2em;
@@ -100,19 +101,26 @@ class NowPlaying extends React.PureComponent {
           .user-name {
             line-height: 30px;
           }
+          .trackartist {
+            height: 130px;
+            overflow-x: auto;
+            overflow-y: hidden;
+          }
         `}</style>
         <div className="now-playing__text media">
           <div className="media__img">
             <img src={this.props.track.album.images[1].url} width="170" height="170" />
           </div>
           <div className="now-playing__bd media__bd">
-            <div className="now-playing__track-name">
-              {this.props.track.name}
-              {/* <button style={buttonStyleX} onClick={this.handleRemovePlayingSong()}>
+            <div className="trackartist">
+              <div className="now-playing__track-name">
+                {this.props.track.name}
+                {/* <button style={buttonStyleX} onClick={this.handleRemovePlayingSong()}>
             ✕
           </button> */}
+              </div>
+              <div className="now-playing__artist-name">{this.props.track.artists.map(a => a.name).join(', ')}</div>
             </div>
-            <div className="now-playing__artist-name">{this.props.track.artists.map(a => a.name).join(', ')}</div>
             <div className="media__img">
               <img
                 className="user-image"

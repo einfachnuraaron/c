@@ -13,6 +13,13 @@ import AddToQueue from '../components/AddToQueue';
 import NowPlaying from '../components/NowPlaying';
 import Devices from '../components/Devices';
 import PageWithIntl from '../components/PageWithIntl';
+const SpotifyWebApi = require('spotify-web-api-node');
+const AuthConfig = require('../config/auth');
+
+const spotifyApi = new SpotifyWebApi({
+  clientId: AuthConfig.CLIENT_ID,
+  clientSecret: AuthConfig.CLIENT_SECRET
+});
 
 var options = {
   type: 'CHOOSE_PLAYLIST_SUCCESS',
@@ -198,7 +205,7 @@ var options = {
 
 const onlineStyle = {
   width: '150px',
-  float: 'right'
+  marginBottom: '5rem'
 };
 
 const selectStyle = {
@@ -214,6 +221,10 @@ const optionStyle = {
 };
 
 class Main extends React.Component {
+  state = {
+    playlistID: ''
+  };
+
   static getInitialProps({ req, store, isServer }) {
     return Promise.all([
       store.dispatch(fetchQueue()),
@@ -301,8 +312,38 @@ class Main extends React.Component {
           <style jsx>
             {`
               .app {
-                margin: 20px;
-                padding: 20px;
+                margin-top: 20px;
+                margin-left: 40px;
+                margin-right: 40px;
+                padding: 0px;
+              }
+              @media screen and (orientation:portrait){
+                .online{
+                  float left;
+                }
+                .app {
+                  margin-top:0px;
+                  margin-left: 20px;
+                  margin-right: 20px;
+                  padding: 0px;
+                }
+              }
+              @media screen and (orientation:landscape){
+                .online{
+                  float right;
+                }
+              }
+              .footer{
+                color:  gray;
+                position: fixed;
+                bottom: 0px;
+                left: 0px;
+                right: 0px;
+                margin-top: 150px;
+                width: 100%;
+                height: 4rem;
+                background-color:#3b454f;
+                // box-shadow: 0px -3px 5px 0px #505050
               }
             `}
           </style>
@@ -311,7 +352,7 @@ class Main extends React.Component {
             {this.props.session.user !== null ? <AddToQueue /> : null}
             {this.props.session.user !== null ? <Devices /> : null}
           </div>
-          <div style={onlineStyle}>
+          <div style={onlineStyle} className="online">
             <Users items={this.props.users} />
             {this.props.session.user !== null ? (
               <select value={this.state.playlistID} onChange={this.handleChange} style={selectStyle}>
@@ -327,21 +368,67 @@ class Main extends React.Component {
             ) : null}
           </div>
         </div>
+        <div className="footer">
+          <style jsx>
+            {`
+              @media screen and (max-width: 480px) {
+                .footer {
+                  text-align: center;
+                  height: 2.5rem;
+                }
+                .credits {
+                  line-height: 2.25rem;
+                  color: gray;
+                  font-size: 0.75rem;
+                }
+              }
+              @media screen and (max-width: 480px) and (orientation: landscape) {
+                .footer {
+                  display: none;
+                }
+              }
+              @media screen and (min-width: 480px) and (orientation: landscape) {
+                .footer {
+                  height: 4rem;
+                }
+                .credits {
+                  position: absolute;
+                  line-height: 30px;
+                  top: 1rem;
+                  margin-right: 0px;
+                  margin-left: 30px;
+                  color: gray;
+                }
+              }
+              .footer {
+                color: gray;
+                position: fixed;
+                bottom: 0px;
+                left: 0px;
+                right: 0px;
+                width: 100%;
+                background-color: #3b454f;
+                // box-shadow: 0px -3px 5px 0px #505050
+              }
+            `}
+          </style>
+          <Link href="https://github.com/JMPerez/c">
+            <a className="credits">Based on JMPerez's collaborative listening room </a>
+          </Link>
+        </div>
       </Layout>
     );
   }
 
-  state = {
-    playlistID: ''
-  };
-
   handleChange = event => {
-    this.setState({
-      playlistID: event.target.value
-    });
-    console.log(event.target.value);
-    console.log(this.props.playlistID);
-    console.log(this.props);
+    this.setState(
+      {
+        playlistID: event.target.value
+      },
+      resp => console.log(this.state.playlistID),
+      console.log(this.state)
+    );
+
     // api.playlistID = event.target.value;
   };
 }

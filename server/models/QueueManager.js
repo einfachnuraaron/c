@@ -107,20 +107,21 @@ class QueueManager {
     if (index === -1) return false;
     const voters = this.queue[index].voters;
     const downvotes = this.queue[index].downvotes;
+    console.log('+: ' + voters + '-: ' + downvotes);
     if (voters) {
       const userVotes = voters.filter(v => v.id === user.id);
       if (userVotes.length === 0) {
         if (downvotes) {
           const userDownvotes = downvotes.filter(v => v.id === user.id);
-          if (userDownvotes !== 0) {
+          if (userDownvotes.length === 1) {
             this.queue[index].downvotes.splice(user, 1);
+          } else {
+            this.queue[index].voters.push(user);
           }
-          this.queue[index].voters.push(user);
         }
         this.handleQueueChanged();
         return true;
       }
-      return false;
     }
   }
 
@@ -129,15 +130,17 @@ class QueueManager {
     if (index === -1) return false;
     const voters = this.queue[index].voters;
     const downvotes = this.queue[index].downvotes;
+    console.log('+: ' + voters + '-: ' + downvotes);
     if (downvotes) {
       const userVotes = downvotes.filter(v => v.id === user.id);
       if (userVotes.length === 0) {
         if (voters) {
           const userVotes = voters.filter(v => v.id === user.id);
-          if (userVotes !== 0) {
+          if (userVotes.length === 1) {
             this.queue[index].voters.splice(user, 1);
+          } else {
+            this.queue[index].downvotes.push(user);
           }
-          this.queue[index].downvotes.push(user);
         }
         if (voters.length - downvotes.length < -2) {
           this.queue.splice(index, 1);
@@ -147,7 +150,6 @@ class QueueManager {
         }
         return true;
       }
-      return false;
     }
   }
 

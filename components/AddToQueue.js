@@ -126,7 +126,7 @@ class AddToQueue extends Component {
         break;
       case 13: {
         let correct = false;
-        if (this.state.focus !== -1) {
+        if (this.state.focus >= 0) {
           this.props.queueTrack(this.props.search.results[this.state.focus].id);
           correct = true;
         } else {
