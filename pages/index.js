@@ -415,7 +415,7 @@ class Main extends React.Component {
           <Link href="https://github.com/JMPerez/c">
             <a className="credits">
               Based on JMPerez's collaborative listening room
-              <span style={{ marginLeft: '35px' }}>Versionsstand: 22.03.2020</span>
+              <span style={{ marginLeft: '25px' }}>Versionsstand: 22.03.2020</span>
             </a>
           </Link>
         </div>
