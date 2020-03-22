@@ -48,7 +48,16 @@ const getNameFromUser = user => {
 const Header = ({ session, muted, mutePlayback, unmutePlayback, login }) => (
   <div title="Based on JMPerez's collaborative listening room" style={headerStyle}>
     <Link href="https://github.com/JMPerez/c">
-      <a style={titleStyle}>spotify noiselink.</a>
+      <a style={titleStyle}>
+        <style jsx>{`
+          @media screen and (max-width: 417px) {
+            .spoofyStyle {
+              display: none;
+            }
+          }
+        `}</style>
+        <span className="spoofyStyle">spotify </span>noiselink.
+      </a>
     </Link>
 
     <button
