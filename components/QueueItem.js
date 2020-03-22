@@ -1,6 +1,5 @@
 import React from 'react';
 import { voteDown } from '../actions/voteActions';
-import { NonceProvider } from 'react-select';
 
 const buttonStyle = {
   backgroundColor: '#3b454f',
