@@ -86,8 +86,8 @@ class Devices extends React.PureComponent {
                         class="btn btn--dark"
                         onClick={() => {
                           transferPlaybackToDevice(device.id);
-                          wait(400);
-                          fetchAvailableDevices();
+                          // wait(400);
+                          // fetchAvailableDevices();
                         }}
                       >
                         <FormattedMessage id="devices.transfer" />

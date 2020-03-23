@@ -38,8 +38,7 @@ export default store => next => action => {
           Authorization: `Bearer ${store.getState().session.access_token}`
         },
         body: JSON.stringify({
-          device_ids: [action.deviceId],
-          play: true
+          device_ids: [action.deviceId]
         })
       }).then(r => {
         if (r.error) {
