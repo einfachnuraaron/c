@@ -38,18 +38,17 @@ export default store => next => action => {
           Authorization: `Bearer ${store.getState().session.access_token}`
         },
         body: JSON.stringify({
-          device_ids: [action.deviceId]
+          device_ids: [action.deviceId],
+          play: true
         })
-      })
-        .then(r => r.json())
-        .then(r => {
-          if (r.error) {
-            store.dispatch(transferPlaybackToDeviceError(r.error));
-          } else {
-            store.dispatch(transferPlaybackToDeviceSuccess());
-            store.dispatch(fetchAvailableDevices());
-          }
-        });
+      }).then(r => {
+        if (r.error) {
+          store.dispatch(transferPlaybackToDeviceError(r.error));
+        } else {
+          store.dispatch(transferPlaybackToDeviceSuccess());
+          store.dispatch(fetchAvailableDevices());
+        }
+      });
       break;
     }
 

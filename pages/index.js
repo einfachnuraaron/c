@@ -317,18 +317,18 @@ class Main extends React.Component {
                 margin-right: 40px;
                 padding: 0px;
               }
-              @media screen and (orientation:portrait){
+              @media screen and (max-width: 480px){
                 .online{
                   float left;
                 }
                 .app {
-                  margin-top:0px;
-                  margin-left: 20px;
+                  margin-top: -5px;
+                  margin-left: 10px;
                   margin-right: 20px;
                   padding: 0px;
                 }
               }
-              @media screen and (orientation:landscape){
+              @media screen and (min-width: 481px){
                 .online{
                   float right;
                 }
@@ -390,6 +390,7 @@ class Main extends React.Component {
               @media screen and (min-width: 480px) and (orientation: landscape) {
                 .footer {
                   height: 4rem;
+                  margin-top: 4rem;
                 }
                 .credits {
                   position: absolute;
@@ -402,6 +403,7 @@ class Main extends React.Component {
               }
               .footer {
                 color: gray;
+                margin-top: 100px;
                 position: fixed;
                 bottom: 0px;
                 left: 0px;
