@@ -12,29 +12,38 @@ class Queue extends React.PureComponent {
     const { items, session } = this.props;
     return (
       <div style={{ paddingBottom: '10px' }}>
-        <h2><FormattedMessage id="queue.title" /></h2>
-        {items.length === 0
-          ? <p><FormattedMessage id="queue.empty" /></p>
-          : <table className="queue">
-              <style jsx>{`
-                .queue {
-                  max-width: 550px;
-                }
-              `}</style>
-              <tbody>
-                {items.map((i, index) => (
-                  <QueueItem
-                    item={i}
-                    session={session}
-                    index={index}
-                    key={index}
-                    onVoteUp={() => this.props.voteUp(i.id)}
-                    onVoteDown={() => this.props.voteDown(i.id)}
-                    onRemoveItem={() => this.props.queueRemoveTrack(i.id)}
-                  />
-                ))}
-              </tbody>
-            </table>}
+        <h2>
+          <FormattedMessage id="queue.title" />
+        </h2>
+        {items.length === 0 ? (
+          <p>
+            <FormattedMessage id="queue.empty" />
+          </p>
+        ) : (
+          <table className="queue">
+            <style jsx>{`
+              .queue {
+                max-width: 550px;
+              }
+              .tbody {
+                height: 100px;
+              }
+            `}</style>
+            <tbody>
+              {items.map((i, index) => (
+                <QueueItem
+                  item={i}
+                  session={session}
+                  index={index}
+                  key={index}
+                  onVoteUp={() => this.props.voteUp(i.id)}
+                  onVoteDown={() => this.props.voteDown(i.id)}
+                  onRemoveItem={() => this.props.queueRemoveTrack(i.id)}
+                />
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     );
   }

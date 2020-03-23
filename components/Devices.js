@@ -43,7 +43,14 @@ class Devices extends React.PureComponent {
   render() {
     const { devices, isFetching, fetchAvailableDevices, transferPlaybackToDevice } = this.props;
     return (
-      <div style={{ paddingBottom: '' }}>
+      <div className="deviceStyle">
+        <style jsx>{`
+          @media screen and (min-width: 481px) {
+            .deviceStyle {
+              margin-bottom: 180px;
+            }
+          }
+        `}</style>
         <h2 style={capital}>
           <FormattedMessage id="devices.title" />
         </h2>
@@ -64,7 +71,7 @@ class Devices extends React.PureComponent {
             <FormattedMessage id="devices.empty" />
           </p>
         ) : (
-          <table>
+          <table style={{ marginBottom: '0px' }}>
             <tbody>
               {devices.map(device => (
                 <tr>
@@ -79,13 +86,15 @@ class Devices extends React.PureComponent {
                         class="btn btn--dark"
                         onClick={() => {
                           transferPlaybackToDevice(device.id);
+                          wait(400);
+                          fetchAvailableDevices();
                         }}
                       >
                         <FormattedMessage id="devices.transfer" />
                       </button>
                     )}
                   </td>
-                  <td>{device.name}</td>
+                  <td style={{ paddingRight: '10px' }}>{device.name}</td>
                   <td>{device.type}</td>
                   <td>{device.volume}</td>
                 </tr>
@@ -96,6 +105,13 @@ class Devices extends React.PureComponent {
         )}
       </div>
     );
+    function wait(ms) {
+      var start = new Date().getTime();
+      var end = start;
+      while (end < start + ms) {
+        end = new Date().getTime();
+      }
+    }
   }
 }
 

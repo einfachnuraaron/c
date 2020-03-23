@@ -30,11 +30,11 @@ class Bot {
     // var playlistID = state.playlistID;
     // console.log(playlistID+"Aaron")
     // if(playlistID == null){
-    // var playlistID = '37i9dQZF1EthkNN8NKPlxz';
-    var playlistID = '75qiwicEyZAKQ7vVcd1Kgm';
+    var playlistID = '37i9dQZF1EthkNN8NKPlxz';
+    // var playlistID = '75qiwicEyZAKQ7vVcd1Kgm';
     //open.spotify.com/playlist/37i9dQZF1DWVWiyE9VDkCO?si=OGPdWfV_S9uSldDUzhllcw
-    https: // }
-    await getToken();
+    // }
+    https: await getToken();
     const res = await spotifyApi.getPlaylistTracks(playlistID);
     var rand = Math.floor(Math.random() * Math.floor(res.body.items.length));
     var track = res.body.items[rand].track;
