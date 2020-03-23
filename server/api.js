@@ -73,7 +73,7 @@ const queueManager = new QueueManager({
   onQueueChanged: async () => {
     globalSocket && globalSocket.emit('update queue', queueManager.getQueue());
     globalSocket && globalSocket.broadcast.emit('update queue', queueManager.getQueue());
-    if (queueManager.getQueue().length === 0 && session.user.length != 0) {
+    if (queueManager.getQueue().length === 0) {
       const playlistRecommendation = await botUser.generateRecommendationFromPlaylist(getToken, spotifyApi);
       if (playlistRecommendation !== null) {
         queueManager.addItem(
