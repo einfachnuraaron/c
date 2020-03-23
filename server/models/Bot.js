@@ -30,10 +30,12 @@ class Bot {
     // var playlistID = state.playlistID;
     // console.log(playlistID+"Aaron")
     // if(playlistID == null){
-    //Aaron
+    //Aarons Top 100 2019
     // var playlistID = '37i9dQZF1EthkNN8NKPlxz';
-    //Luca
+    //Lucas ToGo 2
     var playlistID = '75qiwicEyZAKQ7vVcd1Kgm';
+    //Cliquenmukke
+    var playlistID = '1P63hvKPOe9ahuYd8VVcCb';
     //open.spotify.com/playlist/37i9dQZF1DWVWiyE9VDkCO?si=OGPdWfV_S9uSldDUzhllcw
     // }
     https: await getToken();
