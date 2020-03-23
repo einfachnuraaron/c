@@ -30,14 +30,34 @@ class Bot {
     // var playlistID = state.playlistID;
     // console.log(playlistID+"Aaron")
     // if(playlistID == null){
-    var playlistID = '37i9dQZF1EthkNN8NKPlxz';
+    //Aarons Top 100 2019
+    // var playlistID = '37i9dQZF1EthkNN8NKPlxz';
+    //Lucas ToGo 2
     // var playlistID = '75qiwicEyZAKQ7vVcd1Kgm';
-    //open.spotify.com/playlist/37i9dQZF1DWVWiyE9VDkCO?si=OGPdWfV_S9uSldDUzhllcw
+    //Cliquenmukke
+    var playlistID = '1P63hvKPOe9ahuYd8VVcCb';
     // }
     https: await getToken();
-    const res = await spotifyApi.getPlaylistTracks(playlistID);
-    var rand = Math.floor(Math.random() * Math.floor(res.body.items.length));
-    var track = res.body.items[rand].track;
+    const res = await spotifyApi.getPlaylistTracks(playlistID, { offset: 0 });
+    // const res = await spotifyApi.getMySavedTracks({limit : 1, offset: 1});
+
+    var offset = 100;
+    var tracks = res.body.items.length;
+    var obj = '[]';
+    var itemArray = JSON.parse(obj);
+    for (var i = 0; i < res.body.items.length; i++) {
+      itemArray.push(res.body.items[i]);
+    }
+    while (tracks < res.body.total) {
+      const newres = await spotifyApi.getPlaylistTracks(playlistID, { offset: offset });
+      tracks = tracks + newres.body.items.length;
+      for (var i = 0; i < newres.body.items.length; i++) {
+        itemArray.push(newres.body.items[i]);
+      }
+      offset = offset + 100;
+    }
+    var rand = Math.floor(Math.random() * Math.floor(itemArray.length));
+    var track = itemArray[rand].track;
     return track;
   }
 
