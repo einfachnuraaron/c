@@ -1,3 +1,3 @@
 module.exports = {
-  HOST: 'https://noiselink.herokuapp.com/'
+  HOST: 'noiselink.herokuapp.com'
 };
