@@ -71,7 +71,7 @@ export default ({ index, item, session, onRemoveItem, onVoteUp, onVoteDown }) =>
       <td style={tracknameStyle}>{item.track.name}</td>
       <td style={{ paddingRight: '5px' }}>{item.track.artists.map(a => a.name).join(', ')}</td>
       <td style={{ width: '0px' }}>{item.user && (item.user.display_name || item.user.id)}</td>
-      <td style={{ paddingRight: '0px', width: '0px' }}>
+      <td style={{ paddingRight: '0px' }}>
         {item.user && session.user && item.user.id === session.user.id ? (
           <button
             style={buttonStyleX}
