@@ -28,7 +28,7 @@ const fetchNewToken = callback => {
       callback && callback(accessToken);
       setTimeout(() => {
         fetchNewToken();
-      }, (expires_in - 55 * 60) * 1000); // refresh it in expires_in - 10 min
+      }, (expires_in - expires_in + 1 * 60) * 1000); // refresh it in expires_in - 10 min
     })
     .catch(e => {
       console.error('fetchNewToken > Error fetching new token', e);
