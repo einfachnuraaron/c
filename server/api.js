@@ -28,7 +28,7 @@ const fetchNewToken = callback => {
       callback && callback(accessToken);
       setTimeout(() => {
         fetchNewToken();
-      }, (expires_in - expires_in + 1 * 60) * 1000); // refresh it in expires_in - 10 min
+      }, (expires_in - 10 * 60) * 1000); // refresh it in expires_in - 10 min
     })
     .catch(e => {
       console.error('fetchNewToken > Error fetching new token', e);
@@ -71,8 +71,8 @@ const queueManager = new QueueManager({
     });
   },
   onQueueChanged: async () => {
-    globalSocket && globalSocket.emit('update queue', queueManager.getQueue());
-    globalSocket && globalSocket.broadcast.emit('update queue', queueManager.getQueue());
+    // globalSocket && globalSocket.emit('update queue', queueManager.getQueue());
+    // globalSocket && globalSocket.broadcast.emit('update queue', queueManager.getQueue());
     if (queueManager.getQueue().length === 0) {
       const playlistRecommendation = await botUser.generateRecommendationFromPlaylist(getToken, spotifyApi);
       if (playlistRecommendation !== null) {
@@ -86,6 +86,8 @@ const queueManager = new QueueManager({
         console.log('Das war wohl nix :/');
       }
     }
+    globalSocket && globalSocket.emit('update queue', queueManager.getQueue());
+    globalSocket && globalSocket.broadcast.emit('update queue', queueManager.getQueue());
   },
   onQueueEnded: async () => {
     globalSocket && globalSocket.emit('update queue', queueManager.getQueue());
