@@ -35,8 +35,9 @@ class Bot {
     //Lucas ToGo 2
     // var playlistID = '75qiwicEyZAKQ7vVcd1Kgm';
     //Cliquenmukke
-    // var playlistID = '1P63hvKPOe9ahuYd8VVcCb';
-    var playlistID = '3e3Va4bqdOc3gQuyqmVwsC';
+    var playlistID = '1P63hvKPOe9ahuYd8VVcCb';
+    //lina oldschool
+    //var playlistID = '3e3Va4bqdOc3gQuyqmVwsC';
     // }
     https: await getToken();
     const res = await spotifyApi.getPlaylistTracks(playlistID, { offset: 0 });
