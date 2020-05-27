@@ -35,7 +35,9 @@ class Bot {
     //Lucas ToGo 2
     // var playlistID = '75qiwicEyZAKQ7vVcd1Kgm';
     //Cliquenmukke
-    var playlistID = '1P63hvKPOe9ahuYd8VVcCb';
+    //var playlistID = '1P63hvKPOe9ahuYd8VVcCb';
+    //noiselinks erste eigene Playlist
+    var playlistID = '3tKHPaGozykva8vHFut0hu';
     //lina oldschool
     //var playlistID = '3e3Va4bqdOc3gQuyqmVwsC';
     // }
